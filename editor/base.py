@@ -152,6 +152,7 @@ class BaseEditor:
                 self.config,
                 t
             ) as tr:
+                assert len(t["input_ids"].shape) == 2, "input_ids should be 2D"
                 logits = self.model(**t)["logits"]
                 cross_entropy(logits, t["labels"]).backward()
         
