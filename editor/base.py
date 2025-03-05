@@ -12,6 +12,7 @@ from nets import MALMENNet
 
 from tqdm import tqdm
 import wandb
+import os
 
 from util import (
     get_module,
@@ -57,9 +58,11 @@ class BaseEditor:
             self.net.parameters(),
             config.editor.meta_lr
         )
+        from pdb import set_trace; set_trace
         if config.editor.load_checkpoint:
-            self.net.load_state_dict(torch.load(f"checkpoints/{config.model.name_or_path}_{config.editor.name}_{str(config.data.n_edits)}_net.pth"))
-            self.opt.load_state_dict(torch.load(f"checkpoints/{config.model.name_or_path}_{config.editor.name}_{str(config.data.n_edits)}_opt.pth"))
+            model_name = os.path.basename(config.model.name_or_path)
+            self.net.load_state_dict(torch.load(f"checkpoints/{model_name}_{config.editor.name}_{str(config.data.n_edits)}_net.pth"))
+            self.opt.load_state_dict(torch.load(f"checkpoints/{model_name}_{config.editor.name}_{str(config.data.n_edits)}_opt.pth"))
 
     def edit_model(
         self,
@@ -149,6 +152,7 @@ class BaseEditor:
                 self.config,
                 t
             ) as tr:
+                assert len(t["input_ids"].shape) == 2, "input_ids should be 2D"
                 logits = self.model(**t)["logits"]
                 cross_entropy(logits, t["labels"]).backward()
         
@@ -167,5 +171,7 @@ class BaseEditor:
             self.train(train_loader)
             self.valid(valid_loader)
         
-        torch.save(self.net.state_dict(), f"checkpoints/{self.config.model.name_or_path}_{self.config.editor.name}_{str(self.config.data.n_edits)}_net.pth")
-        torch.save(self.opt.state_dict(), f"checkpoints/{self.config.model.name_or_path}_{self.config.editor.name}_{str(self.config.data.n_edits)}_opt.pth")
+        model_name = os.path.basename(self.config.model.name_or_path)
+        os.makedirs("checkpoints/", exist_ok=True)
+        torch.save(self.net.state_dict(), f"checkpoints/{model_name}_{self.config.editor.name}_{str(self.config.data.n_edits)}_net.pth")
+        torch.save(self.opt.state_dict(), f"checkpoints/{model_name}_{self.config.editor.name}_{str(self.config.data.n_edits)}_opt.pth")

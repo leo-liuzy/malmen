@@ -8,7 +8,7 @@ import torch
 from torch.utils.data import Dataset, DataLoader
 from torch.nn.utils.rnn import pad_sequence
 
-from transformers import AutoTokenizer
+from transformers import AutoTokenizer, LlamaForCausalLM
 
 class BaseDataset(Dataset):
 
@@ -60,18 +60,29 @@ class BaseDataset(Dataset):
             k: pad_sequence(
                 [t[k].squeeze(0) for t in tok_tuples],
                 batch_first = True,
-                padding_value = -100 if k == "labels" else 0
+                padding_value = -100 if k == "labels" else self.tok.pad_token_id
             ).to(self.device)
             for k in tok_tuples[0].keys()
         }
     
 
+def add_padding(tokenizer, model):
+    tokenizer.add_special_tokens({'pad_token': '[PAD]'})
+    model.resize_token_embeddings(len(tokenizer))
+    if not isinstance(model, LlamaForCausalLM):
+    #     model.model.embed_tokens.weight[-1] = model.model.embed_tokens.weight.mean(0)
+    # else:
+        model.transformer.wte.weight.data[-1] = model.transformer.wte.weight.data.mean(0)
+        
+
 def make_loader(
     config: DictConfig,
-    data_class
+    data_class, 
+    model,
 ) -> Tuple[DataLoader]:
     
     tok = AutoTokenizer.from_pretrained(config.model.name_or_path)
+    add_padding(tok, model)
 
     train_set = data_class(
         config.data,

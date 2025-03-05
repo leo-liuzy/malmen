@@ -1,0 +1,10 @@
+name: musique_combiner_text
+n_edits: 32
+batch_size: 8
+# n_edits: 1
+# batch_size: 1
+nq_path:  ${hydra:runtime.cwd}/malmen_data/nq
+train_path: ${hydra:runtime.cwd}/malmen_data/musique/2hop_musique_ans_v1.0_train.jsonl
+valid_path: ${hydra:runtime.cwd}/malmen_data/musique/2hop_musique_ans_v1.0_dev.jsonl
+
+outer_loop_include_atomq: True

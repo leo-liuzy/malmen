@@ -31,7 +31,7 @@ class ZSREDataset(BaseDataset):
         answer: str
     ) -> Dict[str, torch.LongTensor]:
 
-        if isinstance(self.tok, GPT2TokenizerFast):
+        if isinstance(self.tok, GPT2TokenizerFast) or "llama-3.2" in self.tok.name_or_path.lower():
             answer = " " + answer
             
         tok_prompt = self.tok(
@@ -44,7 +44,7 @@ class ZSREDataset(BaseDataset):
             add_special_tokens = False
         )
 
-        if isinstance(self.tok, GPT2TokenizerFast):
+        if isinstance(self.tok, GPT2TokenizerFast) or "llama-3.2" in self.tok.name_or_path.lower():
 
             tok_tuples = {
                 key: torch.cat((value, tok_answer[key][:, :-1]), -1)
