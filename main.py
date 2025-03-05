@@ -7,12 +7,13 @@ from data.base import make_loader
 from model import make_model
 
 import wandb
+import os
 
 @hydra.main(version_base=None, config_path="config", config_name="config")
 def main(config: DictConfig):
-    
+    model_name = os.path.basename(config.model.name_or_path)
     wandb.init(
-        project = f"{config.data.name}_{config.model.name_or_path}",
+        project = f"{config.data.name}_{model_name}",
         name = f"{config.editor.name}_{str(config.data.n_edits)}",
         config = OmegaConf.to_container(config, resolve = True)
     )

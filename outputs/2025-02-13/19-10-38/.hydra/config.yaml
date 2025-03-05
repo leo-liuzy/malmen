@@ -1,0 +1,32 @@
+model_device: cuda:0
+editor_device: cuda:0
+data:
+  name: zsre
+  n_edits: 512
+  batch_size: 32
+  train_path: /data/users/zliu/malmen/malmen_data/zsre/zsre_train.json
+  valid_path: /data/users/zliu/malmen/malmen_data/zsre/zsre_eval.json
+model:
+  name_or_path: /home/zliu/shared_resources/models/gpt/gpt-j-6B
+  class_name: AutoModelForCausalLM
+  edit_modules:
+  - transformer.h.22.mlp.fc_out
+  - transformer.h.23.mlp.fc_out
+  - transformer.h.24.mlp.fc_out
+  - transformer.h.25.mlp.fc_out
+  - transformer.h.26.mlp.fc_out
+  - transformer.h.27.mlp.fc_out
+  half: true
+editor:
+  name: malmen
+  rank: 1920
+  n_blocks: 2
+  lr: 1.0e-06
+  meta_lr: 1.0e-05
+  loc_coef: 1
+  max_grad_norm: 1
+  n_epochs: 1
+  batch_size: 1024
+  token: ans
+  cache_dir: /data/users/zliu/malmen/cache
+  load_checkpoint: false

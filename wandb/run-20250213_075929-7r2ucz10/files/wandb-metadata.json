@@ -1,0 +1,66 @@
+{
+  "os": "Linux-5.4.0-135-generic-x86_64-with-glibc2.31",
+  "python": "3.11.10",
+  "startedAt": "2025-02-13T07:59:29.652098Z",
+  "args": [
+    "data=zsre",
+    "model=gpt-j",
+    "editor=malmen"
+  ],
+  "program": "/data/users/zliu/malmen/main.py",
+  "codePath": "main.py",
+  "git": {
+    "remote": "git@github.com:leo-liuzy/malmen.git",
+    "commit": "1df295dc032b3ff9a002976e081432cb4f09d342"
+  },
+  "email": "zyliu@utexas.edu",
+  "root": "/data/users/zliu/malmen",
+  "host": "fuji",
+  "username": "zliu",
+  "executable": "/home/zliu/miniconda3/envs/cpt/bin/python",
+  "codePathLocal": "main.py",
+  "cpu_count": 14,
+  "cpu_count_logical": 28,
+  "gpu": "NVIDIA RTX A6000",
+  "gpu_count": 4,
+  "disk": {
+    "/": {
+      "total": "971721437184",
+      "used": "885016600576"
+    }
+  },
+  "memory": {
+    "total": "269938319360"
+  },
+  "cpu": {
+    "count": 14,
+    "countLogical": 28
+  },
+  "gpu_nvidia": [
+    {
+      "name": "NVIDIA RTX A6000",
+      "memoryTotal": "51527024640",
+      "cudaCores": 10752,
+      "architecture": "Ampere"
+    },
+    {
+      "name": "NVIDIA RTX A6000",
+      "memoryTotal": "51527024640",
+      "cudaCores": 10752,
+      "architecture": "Ampere"
+    },
+    {
+      "name": "NVIDIA RTX A6000",
+      "memoryTotal": "51527024640",
+      "cudaCores": 10752,
+      "architecture": "Ampere"
+    },
+    {
+      "name": "NVIDIA RTX A6000",
+      "memoryTotal": "51527024640",
+      "cudaCores": 10752,
+      "architecture": "Ampere"
+    }
+  ],
+  "cudaVersion": "12.0"
+}

@@ -1,0 +1,4 @@
+- data=zsre
+- model=gpt-j
+- editor=malmen
+- editor.cache_dir=/data/users/zliu/malmen/cache

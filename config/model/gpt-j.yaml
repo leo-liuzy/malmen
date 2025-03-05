@@ -1,4 +1,4 @@
-name_or_path: EleutherAI/gpt-j-6B
+name_or_path: /home/zliu/shared_resources/models/gpt/gpt-j-6B # EleutherAI/gpt-j-6B
 class_name: AutoModelForCausalLM
 edit_modules:
 - transformer.h.22.mlp.fc_out
