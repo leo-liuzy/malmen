@@ -5,3 +5,4 @@ defaults:
 - editor: malmen
 model_device: cuda:0
 editor_device: cuda:0
+checkpoint_save_dir: checkpoints

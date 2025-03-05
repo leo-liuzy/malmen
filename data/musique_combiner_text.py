@@ -23,7 +23,7 @@ class MUSIQUE_COMBINER_TEXTDataset(BaseDataset):
     ):
 
         self.config = config
-        self.data = io.load_jsonlines(path)
+        self.data = io.load_jsonlines(path) # [:100]
 
         from data.nq import NQDataset
         self.nq = NQDataset(self.config.nq_path + ("/train.json" if "train" in path else "/validation.json"), tok, config)

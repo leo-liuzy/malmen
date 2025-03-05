@@ -178,3 +178,5 @@ checkpoints/
 malmen_data/
 outputs/
 wandb/
+*.err
+*.log

@@ -172,6 +172,6 @@ class BaseEditor:
             self.valid(valid_loader)
         
         model_name = os.path.basename(self.config.model.name_or_path)
-        os.makedirs("checkpoints/", exist_ok=True)
-        torch.save(self.net.state_dict(), f"checkpoints/{model_name}_{self.config.editor.name}_{str(self.config.data.n_edits)}_net.pth")
-        torch.save(self.opt.state_dict(), f"checkpoints/{model_name}_{self.config.editor.name}_{str(self.config.data.n_edits)}_opt.pth")
+        os.makedirs(self.config.checkpoint_save_dir, exist_ok=True)
+        torch.save(self.net.state_dict(), f"{self.config.checkpoint_save_dir}/{model_name}_{self.config.editor.name}_{str(self.config.data.n_edits)}_net.pth")
+        torch.save(self.opt.state_dict(), f"{self.config.checkpoint_save_dir}/{model_name}_{self.config.editor.name}_{str(self.config.data.n_edits)}_opt.pth")
